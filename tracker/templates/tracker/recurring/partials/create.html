@@ -1,0 +1,24 @@
+{% load widget_tweaks %}
+
+<h1 class="mt-8 mb-4 prose prose-2xl text-white">
+    {% if is_update %}Update{% else %} Create {% endif %} Recurring Transaction
+</h1>
+
+{% if is_update %}
+<form hx-post="{% url 'update-recurring-transaction' transaction.pk %}">
+{% else %}
+<form hx-post="{% url 'create-recurring-transaction' %}">
+{% endif %}
+    {% include 'tracker/recurring/partials/form.html' %}
+    
+    <button class="btn btn-success">
+        {% if is_update %}Update{% else %}Add{% endif %}
+    </button>
+
+    <button class="btn btn-success"
+        hx-get="{% url 'recurring' %}"
+        hx-target="#recurring-list"
+        hx-push-url="true">
+        Cancel
+      </button>
+</form>

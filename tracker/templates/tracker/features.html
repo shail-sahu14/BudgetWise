@@ -1,0 +1,53 @@
+{% extends 'tracker/base.html' %}
+
+{% block head_title %}
+    Features
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto py-10 px-6">
+  <h1 class="text-3xl font-bold text-center mb-10">Advanced Features</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Recurring Transactions -->
+    <a href="{% url 'recurring' %}" class="bg-white shadow-md hover:shadow-lg rounded-2xl p-6 transition-all border border-gray-200 hover:border-blue-500">
+      <h2 class="text-xl font-semibold mb-2 text-blue-600">🔁 Recurring Transactions</h2>
+      <p class="text-gray-600">Automatically add repeating income or expense entries like subscriptions, salaries, or rent.</p>
+    </a>
+
+    <!-- Income/Expense Forecast -->
+    <a href="" class="bg-white shadow-md hover:shadow-lg rounded-2xl p-6 transition-all border border-gray-200 hover:border-green-500">
+      <h2 class="text-xl font-semibold mb-2 text-green-600">📈 Forecast Expenses</h2>
+      <p class="text-gray-600">Use machine learning to predict your income and spending for the next week or month.</p>
+    </a>
+
+    <!-- Visual Insights -->
+    <a href="{% url 'transactions-charts' %}" class="bg-white shadow-md hover:shadow-lg rounded-2xl p-6 transition-all border border-gray-200 hover:border-purple-500">
+      <h2 class="text-xl font-semibold mb-2 text-purple-600">📊 Visual Insights</h2>
+      <p class="text-gray-600">Explore trends and spending patterns through beautiful, interactive charts.</p>
+    </a>
+
+    <!-- Export Data -->
+    <a href="{% url 'transactions-list' %}" class="bg-white shadow-md hover:shadow-lg rounded-2xl p-6 transition-all border border-gray-200 hover:border-yellow-500">
+      <h2 class="text-xl font-semibold mb-2 text-yellow-600">📤 Export Transactions</h2>
+      <p class="text-gray-600">Download your transactions as CSV or Excel files for offline access or analysis.</p>
+    </a>
+
+    <!-- Budget Alerts-->
+    <a href="" class="bg-white shadow-md hover:shadow-lg rounded-2xl p-6 transition-all border border-gray-200 hover:border-red-500">
+      <h2 class="text-xl font-semibold mb-2 text-red-600">🚨 Budget Alerts</h2>
+      <p class="text-gray-600">Get notified when you exceed your budget limits for a category or time period.</p>
+    </a>
+
+    <!-- Smart Suggestions-->
+    <a href="" class="bg-white shadow-md hover:shadow-lg rounded-2xl p-6 transition-all border border-gray-200 hover:border-indigo-500">
+      <h2 class="text-xl font-semibold mb-2 text-indigo-600">🧠 Smart Suggestions</h2>
+      <p class="text-gray-600">Automatically suggest savings ideas, budget adjustments, or investment options.</p>
+    </a>
+
+  </div>
+</div>
+{% endblock %}
