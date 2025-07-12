@@ -7,6 +7,12 @@
     Welcome to the Personal Finance Tracker
 </h1>
 
+<p class="mb-6 text-gray-300 text-base md:text-lg">
+  Take control of your finances with ease. This app helps you monitor your income, track expenses, set monthly budgets, and gain valuable insights into your spending habits.
+</p>
+
+
+
 
 {% if user.is_authenticated %}
 
@@ -44,11 +50,49 @@
             My Charts
         </a>
     </div>
-{% else %}
+    <div class="mb-3">
+        <a href="{% url 'budgets' %}" 
+            class="font-medium text-white hover:underline flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6 me-2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+            </svg>
 
+              
+            My Budget
+        </a>
+    </div>
+
+{% else %}
+  <a href="{% url 'account_login' %}" 
+     class="block px-4 py-2 text-white bg-green-600 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out md:inline-block md:px-6 md:py-2 md:rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+     aria-current="page">
+    Login
+  </a>
+    <a href="{% url 'account_signup' %}" 
+       class="block px-4 py-2 text-white bg-green-600 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out md:inline-block md:px-6 md:py-2 md:rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+       aria-current="page">
+          Sign Up
+    </a>
 {% endif %}
 
 
-<p class="text-white">{% lorem %}</p>
+
+    {% for alert in alerts %}
+        <div class="alert alert-warning shadow-lg mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+        </svg>
+        <div>
+            <h3 class="font-bold">Budget Alert!</h3>
+            <div class="text-sm">
+            You've spent <span class="font-semibold">{{ alert.percent }}%</span> of your <span class="font-semibold">{{ alert.category }}</span> budget.
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+
+
 
 {% endblock content %}

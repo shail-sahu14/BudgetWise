@@ -26,9 +26,9 @@
                 <tbody>
                     <tr>
                         <td>{{ total_transactions|intcomma }}</td>
-                        <td>${{ total_income|floatformat:2|intcomma }}</td>
-                        <td>${{ total_expenses|floatformat:2|intcomma }}</td>
-                        <td>${{ net_income|floatformat:2|intcomma }}</td>
+                        <td>₹{{ total_income|floatformat:2|intcomma }}</td>
+                        <td>₹{{ total_expenses|floatformat:2|intcomma }}</td>
+                        <td>₹{{ net_income|floatformat:2|intcomma }}</td>
                     </tr>
                 </tbody>
             </table>

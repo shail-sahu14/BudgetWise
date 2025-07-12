@@ -1,0 +1,69 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="text-xl font-bold mb-4 flex items-center justify-between">
+    Monthly Budget Overview
+    <a href="{% url 'edit-budgets' %}" class="text-gray-600 hover:text-blue-600" aria-label="Edit Budgets">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+        </svg>
+    </a>
+</h2>
+
+
+<!-- Totals Card -->
+    <div class="card bg-base-100 shadow-md p-4 border">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-lg font-bold">{{ totals.category }}</h2>
+                <p class="text-sm text-gray-500">₹{{ totals.spent }} of ₹{{ totals.budgeted }}</p>
+            </div>
+            <div
+                class="radial-progress border-4
+                    {% if item.percent|floatformat:0|add:0 >= 85 %}
+                        bg-red-200 text-red-700 border-red-500
+                    {% elif item.percent|floatformat:0|add:0 >= 70 %}
+                        bg-yellow-200 text-yellow-700 border-yellow-500
+                    {% else %}
+                        bg-green-200 text-green-700 border-green-500
+                    {% endif %}"
+                style="--value: {{ totals.percent|floatformat:0 }};"
+                aria-valuenow="{{ totals.percent }}"
+                role="progressbar">
+                {{ totals.percent|floatformat:0 }}%
+            </div>
+        </div>
+    </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    
+
+    <!-- Category-wise Budget Cards -->
+    {% for item in summary %}
+    <div class="card bg-base-100 shadow-md p-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-lg font-bold">{{ item.category }}</h2>
+                <p class="text-sm text-gray-500">₹{{ item.spent }} of ₹{{ item.budgeted }}</p>
+            </div>
+            <div
+                class="radial-progress border-4
+                    {% if item.percent|floatformat:0|add:0 >= 85 %}
+                        bg-red-200 text-red-700 border-red-500
+                    {% elif item.percent|floatformat:0|add:0 >= 70 %}
+                        bg-yellow-200 text-yellow-700 border-yellow-500
+                    {% else %}
+                        bg-green-200 text-green-700 border-green-500
+                    {% endif %}"
+                style="--value: {{ item.percent|floatformat:0 }};"
+                aria-valuenow="{{ item.percent }}"
+                role="progressbar">
+                {{ item.percent|floatformat:0 }}%
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

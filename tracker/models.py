@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .managers import TransactionQuerySet
+from django.db.models import UniqueConstraint
 
 class User(AbstractUser):
     pass
@@ -57,3 +58,12 @@ class RecurringTransaction(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.amount} {self.category} ({self.frequency})"
+    
+class Budget(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    month = models.DateField()  # for identification
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.category.name} - {self.month.strftime('%B %Y')} - ₹{self.amount}"

@@ -10,6 +10,7 @@ colorama==0.4.6
 cryptography==40.0.2
 defusedxml==0.7.1
 diff-match-patch==20241021
+dj-database-url==3.0.1
 Django==4.2
 django-allauth==0.54.0
 django-debug-toolbar==4.0.0
@@ -50,6 +51,7 @@ platformdirs==3.5.0
 plotly==6.2.0
 pluggy==1.6.0
 protobuf==5.29.5
+psycopg2-binary==2.9.10
 pycparser==2.21
 Pygments==2.19.2
 PyJWT==2.6.0

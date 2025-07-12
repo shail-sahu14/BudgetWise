@@ -5,19 +5,24 @@ from django.core.paginator import Paginator
 from django.conf import settings
 from tracker.models import Transaction,RecurringTransaction
 from tracker.filters import TransactionFilter
-from tracker.forms import TransactionForm,RecurringTransactionForm
+from tracker.forms import TransactionForm,RecurringTransactionForm,BudgetForm
 from django_htmx.http import retarget
 from tracker.charting import plot_income_expenses_bar_chart, plot_category_pie_chart,plot_income_expense_line_chart
 from tracker.resources import TransactionResource
 from tablib import Dataset
-from tracker.utils import process_recurring_transactions
+from tracker.utils import process_recurring_transactions,get_budget_summary
 from django.utils import timezone
+from django.contrib import messages
+from datetime import date
 
 # Create your views here.
 def index(request):
     if request.user.is_authenticated:
         process_recurring_transactions(request.user)
-    return render(request, 'tracker/index.html')
+        alerts = get_budget_summary(request.user)['alerts']
+        context = {'alerts' : alerts}
+        return render(request, 'tracker/index.html',context)
+    return render(request, 'tracker/index.html',{})
 
 
 @login_required
@@ -250,3 +255,25 @@ def delete_recurring_transaction(request,pk):
         'message': f"Transaction of {transaction.amount} on {transaction.start_date} was deleted successfully!",
     }
     return render(request, 'tracker/recurring/partials/success.html', context)
+
+@login_required
+def budgets(request):
+    summary = get_budget_summary(request.user)['summary']
+    context = {'totals': summary[0],'summary': summary[1:]}
+    return render(request, 'tracker/budget-summary.html',context)
+
+def edit_budgets(request):
+    month = date.today().replace(day=1)
+
+    if request.method == 'POST':
+        form = BudgetForm(request.POST, user=request.user, month=month)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Budgets saved successfully!")
+            return redirect('budgets')  
+    else:
+        form = BudgetForm(user=request.user, month=month)
+
+    return render(request, 'tracker/budgets/edit-budget.html', {'form': form})
+
+

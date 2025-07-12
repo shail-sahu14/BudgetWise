@@ -21,4 +21,7 @@ urlpatterns = [
     path('features/recurring/create/', views.create_recurring_transaction, name='create-recurring-transaction'),
     path('features/recurring/<int:pk>/update/', views.update_recurring_transaction, name='update-recurring-transaction'),
     path('features/recurring/<int:pk>/delete/', views.delete_recurring_transaction, name='delete-recurring-transaction'),
+    
+    path('budget_summary/',views.budgets,name='budgets'),
+    path('budget_summary/edit',views.edit_budgets,name='edit-budgets'),
 ]
