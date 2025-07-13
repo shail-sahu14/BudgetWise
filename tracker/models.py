@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .managers import TransactionQuerySet
-from django.db.models import UniqueConstraint
 
 class User(AbstractUser):
     pass
