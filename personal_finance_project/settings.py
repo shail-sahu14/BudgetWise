@@ -164,4 +164,4 @@ PAGE_SIZE = 5
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ['https://budgetwise-n96t.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://budgetwise-wtf6.onrender.com']
